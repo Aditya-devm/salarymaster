@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuralPay | AI Salary Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="custom-header">
+        <div class="header-logo">
+            <span class="material-symbols-outlined logo-icon">blur_on</span>
+            <h1>NEURALPAY</h1>
+        </div>
+        <div class="header-actions">
+            <span class="material-symbols-outlined">notifications</span>
+            <span class="material-symbols-outlined profile-icon">account_circle</span>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="grid">
+            <!-- Left Column: Upload & Main Action -->
+            <section class="left-panel">
+                <header class="main-hero">
+                    <h2 class="hero-title">Neural Salary Forecasting</h2>
+                    <p class="hero-subtitle">Upload your professional profile to generate high-fidelity market value predictions.</p>
+                </header>
+
+                <div class="upload-zone" id="drop-zone">
+                    <input type="file" id="cv-upload" accept=".pdf" hidden>
+                    <span class="material-symbols-outlined upload-icon">cloud_upload</span>
+                    <h3>Drop your CV or Portfolio</h3>
+                    <p>NeuralPay extracts skill matrices and experience depth automatically.</p>
+                    <div id="file-info" class="file-info hidden">
+                        <span class="material-symbols-outlined">description</span>
+                        <span id="filename">filename.pdf</span>
+                    </div>
+                </div>
+
+                <button id="predict-btn" class="primary-btn">
+                    🚀 Predict Market Value
+                </button>
+
+                <div id="prediction-result" class="prediction-container hidden">
+                    <p class="result-label">Neural Forecast Analysis Complete</p>
+                    <h1 id="salary-value" class="salary-display">₹0</h1>
+                    <p class="result-context">Projected Annual Market Value for <span id="target-role-display" class="text-accent">Software Engineer</span></p>
+                </div>
+            </section>
+
+            <!-- Right Column: Specs & Gauge -->
+            <section class="right-panel">
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <span class="material-symbols-outlined">work</span>
+                        <h4>Job Specifications</h4>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="role-select">Target Role</label>
+                        <select id="role-select" class="custom-select">
+                            {% for role in roles %}
+                            <option value="{{ role }}">{{ role }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edu-select">Highest Education</label>
+                        <select id="edu-select" class="custom-select">
+                            {% for edu in educations %}
+                            <option value="{{ edu }}">{{ edu }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="gauge-panel glass-panel">
+                    <div class="panel-header">
+                        <span class="material-symbols-outlined">timeline</span>
+                        <h4>Live Tenure Gauge</h4>
+                    </div>
+                    
+                    <div class="gauge-container">
+                        <svg class="gauge-svg" viewBox="0 0 180 180">
+                            <circle class="gauge-bg" cx="90" cy="90" r="80"></circle>
+                            <circle id="gauge-fill" class="gauge-fill" cx="90" cy="90" r="80"></circle>
+                        </svg>
+                        <div class="gauge-text">
+                            <div id="experience-val" class="exp-number">0</div>
+                            <div class="exp-unit">Years</div>
+                        </div>
+                    </div>
+
+                    <div class="slider-container">
+                        <label>Professional Tenure</label>
+                        <input type="range" id="experience-slider" min="0" max="40" value="0" class="custom-slider">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="loader" class="loader-overlay hidden">
+        <div class="neural-loader"></div>
+        <p>Analyzing Matrix...</p>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
